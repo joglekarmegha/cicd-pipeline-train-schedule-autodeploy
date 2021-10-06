@@ -2,7 +2,7 @@ pipeline {
     agent any
     environment {
         //be sure to replace "willbla" with your own Docker Hub username
-        DOCKER_IMAGE_NAME = "omsairam9/edureka:trainSchedule"
+        DOCKER_IMAGE_NAME = "dockercontainerregistery.azurecr.io/trainSchedule"
     }
     stages {
         stage('Build') {
@@ -25,7 +25,7 @@ pipeline {
         stage('Push Docker Image') {
             steps {
                 script {
-                    docker.withRegistry('https://registry.hub.docker.com', 'docker_hub_login') {
+                    docker.withRegistry('https://dockercontainerregistery.azurecr.io', 'acr-cred') {
                         app.push("${env.BUILD_NUMBER}")
                         app.push("latest")
                     }
